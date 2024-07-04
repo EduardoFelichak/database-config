@@ -6,6 +6,11 @@ from tkinter import messagebox
 from .postgres import configurar_postgres, load_config
 from .firebird import configurar_firebird
 
+def substituir_caminho_mapeado(caminho):
+    if caminho.startswith('P:'):
+        return caminho.replace('P:', '\\\\COLUMBIA\\DADOS')
+    return caminho
+
 def descompactar_arquivo(arquivo, pasta_destino):
     try:
         if zipfile.is_zipfile(arquivo):
@@ -28,6 +33,8 @@ def processar_arquivo_compactado(nome_base, caminho_arquivo, clear_fields):
     config = load_config()
     pasta_default = config['Paths'].get('DefaultDatabasePath', 'D:/Dados')
     pasta_destino = os.path.join(pasta_default, nome_base)
+
+    caminho_arquivo = substituir_caminho_mapeado(caminho_arquivo)  # Substitui o caminho se necessário
 
     if not os.path.exists(pasta_destino):
         os.makedirs(pasta_destino)
