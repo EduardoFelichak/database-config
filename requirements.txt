@@ -1,0 +1,7 @@
+requests
+plyer
+pystray
+pillow
+psycopg2-binary
+rarfile
+tk
