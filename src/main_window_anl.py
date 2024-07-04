@@ -10,6 +10,7 @@ from .firebird import configurar_firebird
 from .postgres import configurar_postgres, load_config as load_postgres_config
 from .config_window import config_window
 from .compacteds import processar_arquivo_compactado
+from updater import update_application 
 
 def create_window():
     app = tk.Tk()
@@ -78,6 +79,13 @@ def create_window():
                 messagebox.showerror("Erro", "Tipo de arquivo inválido.")
                 config_in_progress = False
 
+    def verificar_atualizacoes():
+        try:
+            update_application()
+            messagebox.showinfo("Atualização", "O aplicativo está atualizado.")
+        except Exception as e:
+            messagebox.showerror("Erro", f"Falha ao verificar atualizações: {str(e)}")
+
     def quit_application(icon, app):
         icon.stop()
         app.quit()
@@ -103,6 +111,7 @@ def create_window():
     icon = trayIcon("Configurador de Bases", icon_image, menu=(
         item('Abrir', lambda: show_hide_window(icon, app)),
         item('Configurações', open_config_window),
+        item('Verificar se há Atualizações', verificar_atualizacoes),
         item('Fechar tudo', lambda: quit_application(icon, app))
     ))
 
