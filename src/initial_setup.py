@@ -30,6 +30,7 @@ def initial_setup():
                 app_dev.mainloop()
 
         next_window = config_window(int(user_type), on_complete)
+        next_window.attributes('-topmost', 1)
         next_window.mainloop()
     
     app = tk.Tk()
