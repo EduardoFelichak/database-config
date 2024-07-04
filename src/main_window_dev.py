@@ -102,7 +102,7 @@ def create_window():
     def enable_tray_menu():
         icon.update_menu(menu)
 
-    icon_image = Image.open("icon.png")
+    icon_image = Image.open("icon.ico")
     menu = (
         item('Abrir', lambda: show_hide_window(icon, app)),
         item('Configurações', open_config_window),

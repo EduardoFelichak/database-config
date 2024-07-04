@@ -107,7 +107,7 @@ def create_window():
         config_app.attributes('-topmost', 1)
         config_app.mainloop()
 
-    icon_image = Image.open("icon.png")
+    icon_image = Image.open("icon.ico")
     icon = trayIcon("Configurador de Bases", icon_image, menu=(
         item('Abrir', lambda: show_hide_window(icon, app)),
         item('Configurações', open_config_window),
