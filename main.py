@@ -13,11 +13,6 @@ def check_user_type():
     return user_type
 
 def main():
-    try:
-        updater.update_application()
-    except Exception as e:
-        messagebox.showerror("Erro", f"Falha ao verificar atualizações: {str(e)}")
-
     user_type = check_user_type()
     if user_type == 0:
         app = initial_setup()

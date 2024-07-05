@@ -68,11 +68,11 @@ def create_window():
             else:
                 messagebox.showerror("Erro", "Tipo de arquivo inválido.")
                 config_in_progress = False
+        config_in_progress = False
 
     def verificar_atualizacoes():
         try:
             update_application()
-            messagebox.showinfo("Atualização", "O aplicativo está atualizado.")
         except Exception as e:
             messagebox.showerror("Erro", f"Falha ao verificar atualizações: {str(e)}")
 

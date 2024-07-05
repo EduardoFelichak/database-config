@@ -82,7 +82,6 @@ def create_window():
     def verificar_atualizacoes():
         try:
             update_application()
-            messagebox.showinfo("Atualização", "O aplicativo está atualizado.")
         except Exception as e:
             messagebox.showerror("Erro", f"Falha ao verificar atualizações: {str(e)}")
 
