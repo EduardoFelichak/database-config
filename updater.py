@@ -6,7 +6,7 @@ import tkinter as tk
 
 GITHUB_REPO = "EduardoFelichak/database-config"
 API_URL = f"https://api.github.com/repos/{GITHUB_REPO}/releases/latest"
-CURRENT_VERSION = "v1.0.2"  
+CURRENT_VERSION = "v1.0.3"  
 
 def get_latest_release():
     try:
