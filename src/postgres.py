@@ -11,11 +11,17 @@ def load_config():
     config.read('config.ini')
     return config
 
+def criar_arquivo_ini_se_analista(config):
+    user_type = int(config['User']['Type'])
+    ini_file_path = config['Paths']['QuestorIniPath']
+    if user_type == 1 and not os.path.exists(ini_file_path):
+        with open(ini_file_path, "w") as file:
+            file.write("[Settings]\n")
+
 def run_command_powershell(cmd, nome_base, success_message, error_message, after_func, config):
     try:
         process = subprocess.Popen(["powershell", "-Command", cmd], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-        stdout, stderr = process.communicate()
-        stdout_str = stdout.decode('utf-8')
+        stderr = process.communicate()
         stderr_str = stderr.decode('utf-8')
 
         if process.returncode == 0 or "already exists" in stderr_str or "errors ignored on restore" in stderr_str:
@@ -35,6 +41,8 @@ def add_to_ini_file(nome_base, config):
         file.write(f"\n[{nome_base}]\nTipoBancoDados=PostgreSQL\nServidor=127.0.0.1\nPortaConexao=5432\nArqBancoDados={nome_base}\nUsuarioBancoDados=postgres\nUsuarioBancoSistema=0\nSenhaUsuarioBancoDados=uFH3KVnlRqx1\nLibraryName=dbxopg.dll\nVendorLib=libpq.dll\nPerfCadNaoTrazNada=0\nPerfCadNaoTrazNadaCon=0\nPerfConNaoAtualizarDCLookup=0\nUsarZebedee=0\nPortaZebedee=3059\nMaisOpcoesZebedee=\nMemDestruirDMCadastro=1\nMemLiberarCacheMemoria=1\nPadronizaTamanhoControles=1\n")
 
 def configurar_postgres(nome_base, caminho_arquivo, config, clear_fields):
+    criar_arquivo_ini_se_analista(config)
+    
     notification.notify(title="Configurando a base", message="Iniciei a configuração, te informo quando tudo terminar.", timeout=10)
     db_user = config['Database']['User']
     db_password = config['Database']['Password']

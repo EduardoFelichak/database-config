@@ -1,13 +1,23 @@
 import configparser
 from tkinter import messagebox
 from plyer import notification
+import os
 
 def load_config():
     config = configparser.ConfigParser()
     config.read('config.ini')
     return config
 
+def criar_arquivo_ini_se_analista(config):
+    user_type = int(config['User']['Type'])
+    ini_file_path = config['Paths']['QuestorIniPath']
+    if user_type == 1 and not os.path.exists(ini_file_path):
+        with open(ini_file_path, "w") as file:
+            file.write("[Settings]\n")
+
 def configurar_firebird(nome_base, caminho_arquivo, config, clear_fields):
+    criar_arquivo_ini_se_analista(config)
+    
     ini_file_path = config['Paths']['QuestorIniPath']
     try:
         with open(ini_file_path, "a") as file:
